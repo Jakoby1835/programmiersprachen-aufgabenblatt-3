@@ -271,10 +271,12 @@ T& List<T>::back() {
 // test and implement:
 // TODO: clear 
 // Aufgabe 3.4 - Teil 1
-/* ... */
+/* löscht so lange alles bis size 0 ist */
 template <typename T>
 void List<T>::clear() {
-
+    while (size_ != 0) {
+        pop_back();
+    }
 }
 
 //=========================
