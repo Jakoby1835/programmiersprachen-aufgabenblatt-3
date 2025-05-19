@@ -283,10 +283,10 @@ void List<T>::clear() {
 // test and implement:
 // TODO: List Destructor implemented by calling clear
 // Aufgabe 3.4 - Teil 2
-/* ... */
+/* ruft clear auf */
 template <typename T>
 List<T>::~List() {
-    //TODO: Implement via clear-Method (Aufgabe 3.4)
+    clear();
 } //can not be tested with unit tests
 
 //=========================
