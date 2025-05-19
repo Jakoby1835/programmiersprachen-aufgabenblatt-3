@@ -22,7 +22,7 @@ public:
     //default constructor with default-member initialization will not be implemented
     ListIterator() = default;
     //user defined constructor implementation is provided below
-    ListIterator(T* node);
+    ListIterator(ListNode<T>* node);
 
     /* Declaration of operator*() */
     T& operator*()  const;
@@ -46,6 +46,8 @@ public:
     /* Advances Iterator */
     ListIterator<T> next() const;
 
+    ListNode<T>* get_node() const;
+
 private:
     //only member variable, pointer to the underlying node (see list_node.hpp)
     ListNode <T>* node_ = nullptr;
@@ -54,7 +56,7 @@ private:
 
 //user-defined constructor is already completely implemented
 template<typename T>
-ListIterator<T>::ListIterator(T* node) : node_{ node } 
+ListIterator<T>::ListIterator(ListNode<T>* node) : node_{ node } 
 {}
 
 /* ======================================== *
@@ -153,6 +155,11 @@ ListIterator<T> ListIterator<T>::next() const {
     else {
         return ListIterator{ nullptr };
     }
+}
+
+template <typename T>
+ListNode<T>* ListIterator<T>::get_node() const {
+    return node_;
 }
 
 #endif // #ifndef BUW_LIST_ITERATOR_HPP

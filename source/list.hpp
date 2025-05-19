@@ -171,7 +171,7 @@ void List<T>::push_front(T const& element) {
 
 //=========================
 /* Aufgabe 3.3 - Teil 2 */
-/**/
+/*als erstes wird sich das erste element gegönnt, von dem wird den next genommen, dann löschen wir first, und machen v_node zum ersten, wenn es jetzt mindestens 2 gibt sind wir fertig*/
 template <typename T>
 void List<T>::pop_front() {
     if (empty()) {
@@ -195,11 +195,22 @@ void List<T>::pop_front() {
 
 //=========================
 /* Aufgabe 3.3 - Teil 3 */
-/* ... */
+/* erst wird ein neues element erstellt und das prev davon zeigt auf dem vorherigen last, ist die liste leer machen wir noch first zu last, und wir sind fertig, wenn nicht, ändern wir das next vom vorherigen last und ändern das last, zur neuen node */
 template <typename T>
 void List<T>::push_back(T const& element) {
     // TODO: push_back-method (Aufgabe 3.3)
+    ListNode<T>* new_node = new ListNode<T>(element, last_, nullptr); //altes first
+    if (empty()) {
+        last_ = new_node;
+        first_ = last_;
+    }
+    else {
+        last_->next = new_node; //altes first
+        last_ = new_node; //neues first
+    }
+    size_++;
 }
+
 
 //=========================
 /* Aufgabe 3.3 - Teil 4 */
