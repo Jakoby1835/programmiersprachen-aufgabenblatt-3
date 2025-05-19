@@ -29,7 +29,7 @@ ListNode<T>* get_node_pointer(ListIterator<T> const& list_iterator_to_test) { re
 //test case definitions for pop methods of list
 #include "sub_tests/pop_front.test"
 #include "sub_tests/pop_back.test"
-/*
+
 //test case definitions for 
 
 //test cases for element access of list
@@ -37,7 +37,7 @@ ListNode<T>* get_node_pointer(ListIterator<T> const& list_iterator_to_test) { re
 #include "sub_tests/back.test"
 
 //test cases for retrieving iterators
-#include "sub_tests/begin.test"
+/*#include "sub_tests/begin.test"
 #include "sub_tests/end.test"
 
 //iterator tests

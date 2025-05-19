@@ -240,23 +240,28 @@ void List<T>::pop_back() {
 
 //=========================
 /* Aufgabe 3.3 - Teil 5 */
-/* ... */
+/* gibt den inhlat des ersten listnode aus */
 template <typename T>
 T& List<T>::front() {
     if (empty()) {
         throw "List is empty";
     }
-
+    else {
+        return first_->value;
+    }
     // TODO: remainder of front-method (Aufgabe 3.3)
 }
 
 //=========================
 /* Aufgabe 3.3 - Teil 6 */
-/* ... */
+/* gibt den inhlat des letzten listnode aus */
 template <typename T>
 T& List<T>::back() {
     if (empty()) {
         throw "List is empty";
+    }
+    else {
+        return last_->value;
     }
 
     // TODO: remainder of back-method (Aufgabe 3.3)
