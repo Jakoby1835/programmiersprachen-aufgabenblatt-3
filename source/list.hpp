@@ -126,11 +126,7 @@ class List {
 /* Aufgabe 3.2 - Teil 1 */
 /* Die Stadartkonstruktion: Die stadtert größe ist 0 also sind die beiden pointer auch 0 also nullpointer */
 template <typename T>
-List<T>::List() {
-    size_ = 0;
-    first_ = nullptr;
-    last_ = nullptr;
-}
+List<T>::List():size_(0), first_(nullptr), last_(nullptr) {}
 
 //=========================
 // test and implement
@@ -293,9 +289,19 @@ List<T>::~List() {
 // test and implement:
 //TODO: Copy-Konstruktor using Deep-Copy semantics 
 // Aufgabe 3.5
-/* ... */
+/* als erstes wird das defoult zu 0 und nullpointer gesetzt, dann wird eine indexnode erstellt die genutzt wird für die while schleife, wenn es sich nicht um ein nullpointer handelt wird dein elemt erstellt,
+in der zweioten list, basically geht wihle von hinten die liste duch und erstellt nodes in der zweiten liste, solnage bis das nächste elment auf ein nullpointer zeigt, dann hört er auf, da ja bei heden push front die liste verschoben wird,
+ist am ende die liste in der richtigen reinfolge*/
 template <typename T>
-List<T>::List(List<T> const& rhs) {}
+List<T>::List(List<T> const& rhs) : size_(0), first_(nullptr), last_(nullptr) {
+    //if (!rhs.empty()) {
+        ListNode<T>* index = rhs.last_;
+        while (index != nullptr) {
+            push_front(index->value);
+            index = index->prev;
+        }
+    //}
+}
 
 //=========================
 // test and implement:
