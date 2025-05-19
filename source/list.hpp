@@ -153,10 +153,20 @@ bool List<T>::empty() const {
 
 //=========================
 /* Aufgabe 3.3 - Teil 1 */
-/* ... */
+/*Wenn die Liste leer ist, zeigen beide (first,last) auf ein Listenelement, wenn nicht wird wird vo vorherigen first, der prev geändert, dann wird der firstpointer auf das neue element gesetzt, und am ender wird die size +1*/
 template <typename T>
 void List<T>::push_front(T const& element) {
     // TODO: push_front-method (Aufgabe 3.3)
+    ListNode<T>* new_node = new ListNode<T>(element, nullptr, first_);
+    if (empty()) {
+        first_ = new_node;
+        last_ = first_;
+    }
+    else {
+        first_->prev = new_node;
+        first_ = new_node;
+    }
+    size_++;
 }
 
 //=========================

@@ -21,10 +21,10 @@ ListNode<T>* get_node_pointer(ListIterator<T> const& list_iterator_to_test) { re
 //test case definitions for default constructor of list as well as empty and size for empty list
 #include "sub_tests/default_constructed_list.test"
 
-/*
+
 //test case definitions for push methods of list
 #include "sub_tests/push_front.test"
-#include "sub_tests/push_back.test"
+/*#include "sub_tests/push_back.test"
 
 //test case definitions for pop methods of list
 #include "sub_tests/pop_front.test"
