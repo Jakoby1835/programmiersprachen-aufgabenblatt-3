@@ -145,6 +145,181 @@ TEST_CASE("copy constructor creates valid copy", "[list_copy]") {
         }
     }
 }
+
+//Tests for 1.6
+/*TEST_CASE("swap function exchanges list contents", "[list_swap]") {
+    List<int> list1;
+    List<int> list2;
+
+    // Test 1: Swap empty lists
+    {
+        list1.swap(list2);
+        auto l1_first = get_first_pointer(list1);
+        auto l1_last = get_last_pointer(list1);
+        auto l2_first = get_first_pointer(list2);
+        auto l2_last = get_last_pointer(list2);
+
+        SECTION("empty lists remain empty after swap") {
+            REQUIRE(nullptr == l1_first);
+            REQUIRE(nullptr == l1_last);
+            REQUIRE(nullptr == l2_first);
+            REQUIRE(nullptr == l2_last);
+            REQUIRE(list1.empty());
+            REQUIRE(list2.empty());
+        }
+    }
+
+    // Test 2: Swap with one empty and one non-empty list
+    list1.push_back(42);
+    {
+        List<int> original1 = list1;
+        List<int> original2 = list2;
+
+        list1.swap(list2);
+
+        auto l1_first = get_first_pointer(list1);
+        auto l1_last = get_last_pointer(list1);
+        auto l2_first = get_first_pointer(list2);
+        auto l2_last = get_last_pointer(list2);
+
+        SECTION("non-empty list becomes empty") {
+            REQUIRE(nullptr == l1_first);
+            REQUIRE(nullptr == l1_last);
+            REQUIRE(list1.empty());
+        }
+
+        SECTION("empty list becomes non-empty") {
+            REQUIRE(nullptr != l2_first);
+            REQUIRE(nullptr != l2_last);
+            REQUIRE(l2_first == l2_last);
+            REQUIRE(42 == l2_first->value);
+            REQUIRE(1 == get_size(list2));
+        }
+    }
+
+    // Test 3: Swap two non-empty lists
+    list1.clear();
+    list1.push_back(1);
+    list1.push_back(2);
+    list2.push_back(3);
+    list2.push_back(4);
+    list2.push_back(5);
+    {
+        List<int> original1 = list1;
+        List<int> original2 = list2;
+
+        list1.swap(list2);
+
+        auto l1_first = get_first_pointer(list1);
+        auto l1_last = get_last_pointer(list1);
+        auto l2_first = get_first_pointer(list2);
+        auto l2_last = get_last_pointer(list2);
+
+        SECTION("first list takes second list's contents") {
+            REQUIRE(nullptr != l1_first);
+            REQUIRE(nullptr != l1_last);
+            REQUIRE(l1_first->next == l1_last);  // Korrigiert: Nur für Listen mit zwei Elementen
+            REQUIRE(3 == l1_first->value);
+            REQUIRE(4 == l1_last->value);
+            REQUIRE(2 == get_size(list1));
+        }
+
+        SECTION("second list takes first list's contents") {
+            REQUIRE(nullptr != l2_first);
+            REQUIRE(nullptr != l2_last);
+            REQUIRE(l2_first->next == l2_last);  // Korrigiert: Nur für Listen mit zwei Elementen
+            REQUIRE(1 == l2_first->value);
+            REQUIRE(2 == l2_last->value);
+            REQUIRE(2 == get_size(list2));
+        }
+    }
+}*/
+TEST_CASE("unifying assignment operator copies list contents", "[list_assignment]") {
+    List<int> list1;
+    List<int> list2;
+
+    // Test 1: Assignment of empty list
+    {
+        list2 = list1;
+        auto l1_first = get_first_pointer(list1);
+        auto l1_last = get_last_pointer(list1);
+        auto l2_first = get_first_pointer(list2);
+        auto l2_last = get_last_pointer(list2);
+
+        SECTION("empty list assignment") {
+            REQUIRE(nullptr == l1_first);
+            REQUIRE(nullptr == l1_last);
+            REQUIRE(nullptr == l2_first);
+            REQUIRE(nullptr == l2_last);
+            REQUIRE(list1.empty());
+            REQUIRE(list2.empty());
+        }
+    }
+
+    // Test 2: Assignment of non-empty list to empty list
+    list1.push_back(42);
+    {
+        List<int> original = list1;
+        list2 = list1;
+
+        auto l1_first = get_first_pointer(list1);
+        auto l1_last = get_last_pointer(list1);
+        auto l2_first = get_first_pointer(list2);
+        auto l2_last = get_last_pointer(list2);
+
+        SECTION("original list remains unchanged") {
+            REQUIRE(nullptr != l1_first);
+            REQUIRE(nullptr != l1_last);
+            REQUIRE(l1_first == l1_last);
+            REQUIRE(42 == l1_first->value);
+            REQUIRE(1 == get_size(list1));
+        }
+
+        SECTION("assigned list has correct contents") {
+            REQUIRE(nullptr != l2_first);
+            REQUIRE(nullptr != l2_last);
+            REQUIRE(l2_first == l2_last);
+            REQUIRE(42 == l2_first->value);
+            REQUIRE(1 == get_size(list2));
+        }
+    }
+
+    // Test 3: Assignment of two non-empty lists
+    list1.clear();
+    list1.push_back(1);
+    list1.push_back(2);
+    list2.push_back(3);
+    list2.push_back(4);
+    list2.push_back(5);
+    {
+        List<int> original = list1;
+        list2 = list1;
+
+        auto l1_first = get_first_pointer(list1);
+        auto l1_last = get_last_pointer(list1);
+        auto l2_first = get_first_pointer(list2);
+        auto l2_last = get_last_pointer(list2);
+
+        SECTION("original list remains unchanged") {
+            REQUIRE(nullptr != l1_first);
+            REQUIRE(nullptr != l1_last);
+            REQUIRE(l1_first->next == l1_last);
+            REQUIRE(1 == l1_first->value);
+            REQUIRE(2 == l1_last->value);
+            REQUIRE(2 == get_size(list1));
+        }
+
+        SECTION("assigned list has correct contents") {
+            REQUIRE(nullptr != l2_first);
+            REQUIRE(nullptr != l2_last);
+            REQUIRE(l2_first->next == l2_last);
+            REQUIRE(1 == l2_first->value);
+            REQUIRE(2 == l2_last->value);
+            REQUIRE(2 == get_size(list2));
+        }
+    }
+}
+
 //test cases for retrieving iterators
 /*#include "sub_tests/begin.test"
 #include "sub_tests/end.test"

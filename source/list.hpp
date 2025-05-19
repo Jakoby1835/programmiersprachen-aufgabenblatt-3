@@ -307,39 +307,43 @@ List<T>::List(List<T> const& rhs) : size_(0), first_(nullptr), last_(nullptr) {
 // test and implement:
 // TODO: helper-swap-method for bultin-types used by unifying assignment operator (see Vorlesung 6, pp. 11-13)
 // Aufgabe 3.6 - Teil 1
-/* ... */
+/* Swapt den kopf der der Liste */
 template <typename T>
 void List<T>::swap(List<T>& rhs) {
-
+    std::swap(first_, rhs.first_);
+    std::swap(last_, rhs.last_);
+    std::swap(size_, rhs.size_);
 }
 
 //=========================
 // test and implement:
 // TODO: unyfing assignment operator (see Vorlesung 6, pp. 11-13)
 // Aufgabe 3.6 - Teil 2
-/* ... */
+/* wendet alles an */
 template <typename T>
 List<T>& List<T>::operator=(List<T> rhs) {
-
+    swap(rhs);
+    return *this;
 }
 
 //=========================
-// Aufgabe 3.7 - Teil 1
+// Aufgabe 3.7 - Teil 1 (liste umdehene)
 /* ... */
 template <typename T>
 void List<T>::reverse() {
-
+    ListNode<T> p_first_ = first_;
+    ListNode<T> p_first_ = first_;
 }
 
 //=========================
-// Aufgabe 3.7 - Teil 2
+// Aufgabe 3.7 - Teil 2 (same aber als freie funktion)
 /* ... */
 template <typename T>
 List<T> reverse(List<T> const& list_to_reverse) {
 
 }
 
-//=========================
+//========================= (wann gleich oder undgleich)
 // Aufgabe 3.8 - Teil 1
 /* ... */
 template <typename T>
