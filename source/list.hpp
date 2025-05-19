@@ -157,25 +157,37 @@ bool List<T>::empty() const {
 template <typename T>
 void List<T>::push_front(T const& element) {
     // TODO: push_front-method (Aufgabe 3.3)
-    ListNode<T>* new_node = new ListNode<T>(element, nullptr, first_);
+    ListNode<T>* new_node = new ListNode<T>(element, nullptr, first_); //altes first
     if (empty()) {
         first_ = new_node;
         last_ = first_;
     }
     else {
-        first_->prev = new_node;
-        first_ = new_node;
+        first_->prev = new_node; //altes first
+        first_ = new_node; //neues first
     }
     size_++;
 }
 
 //=========================
 /* Aufgabe 3.3 - Teil 2 */
-/* ... */
+/**/
 template <typename T>
 void List<T>::pop_front() {
     if (empty()) {
         throw "List is empty";
+    }
+    else {
+        ListNode<T>* v_node = first_->next;
+        delete first_;
+        first_ = v_node;
+        if (first_ != nullptr) {
+            first_->prev = nullptr;
+        } 
+        else {
+            last_ = nullptr;
+        }
+        size_--;
     }
 
     // TODO: remainder of pop_front-method (Aufgabe 3.3)
