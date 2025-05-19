@@ -204,7 +204,8 @@ void List<T>::push_back(T const& element) {
         last_ = new_node;
         first_ = last_;
     }
-    else {
+    else 
+    {
         last_->next = new_node; //altes first
         last_ = new_node; //neues first
     }
@@ -214,11 +215,24 @@ void List<T>::push_back(T const& element) {
 
 //=========================
 /* Aufgabe 3.3 - Teil 4 */
-/* ... */
+/* Gleiches prinzip  wie ebi Teil 2 nur das ich die wertr niegiert habe next -> prev, first_ -> last_ */
 template <typename T>
 void List<T>::pop_back() {
     if (empty()) {
         throw "List is empty";
+    }
+    else 
+    {
+        ListNode<T>* v_node = last_->prev;
+        delete last_;
+        last_ = v_node;
+        if (last_ != nullptr) {
+            last_->next = nullptr;
+        }
+        else {
+            first_ = nullptr;
+        }
+        size_--;
     }
 
     // TODO: remainder of pop_back-method (Aufgabe 3.3)
