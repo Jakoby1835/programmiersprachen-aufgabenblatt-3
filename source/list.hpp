@@ -124,18 +124,21 @@ class List {
  //=========================
 // not fully implemented yet
 /* Aufgabe 3.2 - Teil 1 */
-/* ... */
+/* Die Stadartkonstruktion: Die stadtert größe ist 0 also sind die beiden pointer auch 0 also nullpointer */
 template <typename T>
-List<T>::List() {}
+List<T>::List() {
+    size_ = 0;
+    first_ = nullptr;
+    last_ = nullptr;
+}
 
 //=========================
 // test and implement
 /* Aufgabe 3.2 - Teil 2 */
-/* ... */
+/* gibt size_ zurück da es sich dabei um die größe der Liste handelt */
 template <typename T>
 std::size_t List<T>::size() const {
-    //TODO: return value of member variable insteaf of 27
-    return 27;
+    return size_;
 };
 
 //=========================
