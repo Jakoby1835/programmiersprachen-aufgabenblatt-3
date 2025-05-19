@@ -144,11 +144,11 @@ std::size_t List<T>::size() const {
 //=========================
 // test and implement
 /* Aufgabe 3.2 - Teil 3 */
-/* ... */
+/* die list ist ja leer wenn die anzahl an elemnten 0 ist, also wird true zurück gegeben wenn die size_ 0 ist*/
 template <typename T>
 bool List<T>::empty() const {
     // check whether size member variable is zero -- this should be a one line implementation
-    return false;
+    return size_ == 0;
 };
 
 //=========================
