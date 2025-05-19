@@ -36,7 +36,7 @@ ListNode<T>* get_node_pointer(ListIterator<T> const& list_iterator_to_test) { re
 #include "sub_tests/front.test"
 #include "sub_tests/back.test"
 
-//Tests for 1.5
+//Tests for 3.5
 TEST_CASE("copy constructor creates valid copy", "[list_copy]") {
     List<int> original;
 
@@ -146,7 +146,7 @@ TEST_CASE("copy constructor creates valid copy", "[list_copy]") {
     }
 }
 
-//Tests for 1.6
+//Tests for 3.6
 /*TEST_CASE("swap function exchanges list contents", "[list_swap]") {
     List<int> list1;
     List<int> list2;
@@ -319,6 +319,70 @@ TEST_CASE("unifying assignment operator copies list contents", "[list_assignment
         }
     }
 }
+
+//Tests for 3.7
+/*TEST_CASE("Reverse an empty list", "[list_reverse]") {
+    List<int> list;
+    list.reverse();
+
+    REQUIRE(list.empty());
+}*/
+TEST_CASE("Reverse a list with a single element", "[list_reverse]") {
+    List<int> list;
+    list.push_back(42);
+    list.reverse();
+
+    auto first = get_first_pointer(list);
+    auto last = get_last_pointer(list);
+
+    SECTION("List remains unchanged") {
+        REQUIRE(nullptr != first);
+        REQUIRE(nullptr != last);
+        REQUIRE(first == last);
+        REQUIRE(42 == first->value);
+        REQUIRE(1 == get_size(list));
+    }
+}
+TEST_CASE("Reverse a list with multiple elements", "[list_reverse]") {
+    List<int> list;
+    list.push_back(1);
+    list.push_back(2);
+    list.push_back(3);
+    list.reverse();
+
+    auto first = get_first_pointer(list);
+    auto last = get_last_pointer(list);
+
+    SECTION("List elements are reversed") {
+        REQUIRE(nullptr != first);
+        REQUIRE(nullptr != last);
+        REQUIRE(3 == first->value);
+        REQUIRE(1 == last->value);
+        REQUIRE(3 == get_size(list));
+    }
+}
+TEST_CASE("Reverse twice should restore original order", "[list_reverse]") {
+    List<int> list;
+    list.push_back(1);
+    list.push_back(2);
+    list.push_back(3);
+    list.reverse();
+    list.reverse();
+
+    auto first = get_first_pointer(list);
+    auto last = get_last_pointer(list);
+
+    SECTION("List order is restored") {
+        REQUIRE(nullptr != first);
+        REQUIRE(nullptr != last);
+        REQUIRE(1 == first->value);
+        REQUIRE(3 == last->value);
+        REQUIRE(3 == get_size(list));
+    }
+    list.push_back(42);
+    list.push_back(42);
+}
+
 
 //test cases for retrieving iterators
 /*#include "sub_tests/begin.test"

@@ -328,11 +328,20 @@ List<T>& List<T>::operator=(List<T> rhs) {
 
 //=========================
 // Aufgabe 3.7 - Teil 1 (liste umdehene)
-/* ... */
+/* als erstes wird die liste von hinten bis vorne durchgegangen, und diese conteiner werden hinten angesetzt, jetzt haben wir forne die liste normal, und hinten die liste reverse,
+jetzt pop_fronten wir size/2 mal, und löschen somit die alte liste, übrig bleibt nur noch die reverse lsite */
 template <typename T>
 void List<T>::reverse() {
-    ListNode<T> p_first_ = first_;
-    ListNode<T> p_first_ = first_;
+    if (!empty()) {
+        ListNode<T>* index = last_;
+        while (index != nullptr) {
+            push_back(index->value);
+            index = index->prev;
+        }
+        for (int i = 0; i <= size_ / 2; i++) {
+            pop_front();
+        }
+    }
 }
 
 //=========================
