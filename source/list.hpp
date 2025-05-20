@@ -399,23 +399,24 @@ bool List<T>::operator!=(List const& rhs) const {
 
 //=========================
 // Aufgabe 3.9 - Teil 1
-/* ... */
+/* Gibt einen Iterator zurück, der auf das erste Element der Liste zeigt.
+   Falls die Liste leer ist, zeigt der Iterator auf nullptr.
+*/
 template <typename T>
 ListIterator<T> List<T>::begin() {
-    //TODO: begin-Method returning an Iterator to the 
-    //      first element in the List (Aufgabe 3.9)
-    return {};
+    return ListIterator<T>{first_};
 }
 
 //=========================
 // Aufgabe 3.9 - Teil 2
-/* ... */
+/* Gibt einen Iterator zurück, der auf das Element nach dem letzten zeigt.
+   Dafür wird ein Iterator mit nullptr zurückgegeben (standardkonform).
+*/
 template <typename T>
 ListIterator<T> List<T>::end() {
-    //TODO: end-Method returning an Iterator to element after (!) 
-    //      the last element in the List (Aufgabe 3.9)
-    return {};
+    return ListIterator<T>{nullptr};
 }
+
 
 //=========================
 // Aufgabe 3.11
