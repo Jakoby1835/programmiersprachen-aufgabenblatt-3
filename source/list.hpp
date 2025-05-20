@@ -358,21 +358,43 @@ List<T> reverse(List<T> const& list_to_reverse) {
     return temp;
 }
 
-//========================= (wann gleich oder undgleich)
+//========================= (wann gleich oder ungleich)
 // Aufgabe 3.8 - Teil 1
-/* ... */
+/* Zwei Listen sind gleich (==), wenn:
+   - Sie die gleiche Anzahl an Elementen enthalten.
+   - Jedes Element in gleicher Reihenfolge identisch ist (per == vergleichbar).
+*/
 template <typename T>
 bool List<T>::operator==(List const& rhs) const {
-    //TODO: operator== (Aufgabe 3.8)
+    // Falls die Größen unterschiedlich sind, können sie nicht gleich sein.
+    if (this->size_ != rhs.size_) {
+        return false;
+    }
+
+    // Vergleiche Element für Element mit zwei Zeigern
+    ListNode<T>* left = this->first_;
+    ListNode<T>* right = rhs.first_;
+
+    while (left != nullptr && right != nullptr) {
+        if (!(left->value == right->value)) {
+            return false; // ungleiches Paar gefunden
+        }
+        left = left->next;
+        right = right->next;
+    }
+
+    // Wenn beide Listen gleichzeitig enden, sind sie gleich
+    return true;
 }
 
 //=========================
 // Aufgabe 3.8 - Teil 2
-/* ... */
+/* Zwei Listen sind ungleich (!=), wenn sie nicht gleich sind.
+   Diese Funktion nutzt die bereits implementierte Logik von operator==.
+*/
 template <typename T>
 bool List<T>::operator!=(List const& rhs) const {
-    //TODO: operator!= (Aufgabe 3.8)
-    // make use of operator== you implemented
+    return !(*this == rhs);
 }
 
 //=========================

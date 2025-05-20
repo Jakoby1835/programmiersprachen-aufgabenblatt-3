@@ -511,6 +511,146 @@ TEST_CASE("Reverse a list of booleans (free function)", "[list_reverse]") {
         REQUIRE(3 == get_size(reversed));
     }
 }
+TEST_CASE("Compare string lists with same content", "[list_compare][string]") {
+    List<std::string> list1;
+    List<std::string> list2;
+
+    list1.push_back("hello");
+    list1.push_back("world");
+
+    list2.push_back("hello");
+    list2.push_back("world");
+
+    SECTION("String lists with identical content") {
+        REQUIRE(list1 == list2);
+        REQUIRE_FALSE(list1 != list2);
+    }
+}
+
+TEST_CASE("Compare string lists with different content", "[list_compare][string]") {
+    List<std::string> list1;
+    List<std::string> list2;
+
+    list1.push_back("hello");
+    list1.push_back("world");
+
+    list2.push_back("hello");
+    list2.push_back("WORLD"); // Groß-/Kleinschreibung unterscheidet sich
+
+    SECTION("String lists differ in casing") {
+        REQUIRE(list1 != list2);
+        REQUIRE_FALSE(list1 == list2);
+    }
+}
+
+TEST_CASE("Compare string lists with different lengths", "[list_compare][string]") {
+    List<std::string> list1;
+    List<std::string> list2;
+
+    list1.push_back("only one");
+
+    SECTION("One list has an element, one is empty") {
+        REQUIRE(list1 != list2);
+        REQUIRE_FALSE(list1 == list2);
+    }
+}
+
+TEST_CASE("Compare two empty string lists", "[list_compare][string]") {
+    List<std::string> list1;
+    List<std::string> list2;
+
+    SECTION("Both are empty, so equal") {
+        REQUIRE(list1 == list2);
+        REQUIRE_FALSE(list1 != list2);
+    }
+}
+TEST_CASE("Compare two empty lists for equality", "[list_compare]") {
+    List<int> list1;
+    List<int> list2;
+
+    SECTION("Both lists are empty, should be equal") {
+        REQUIRE(list1 == list2);
+        REQUIRE_FALSE(list1 != list2);
+    }
+}
+
+TEST_CASE("Compare identical lists with one element", "[list_compare]") {
+    List<int> list1;
+    List<int> list2;
+    list1.push_back(42);
+    list2.push_back(42);
+
+    SECTION("Both lists have one identical element") {
+        REQUIRE(list1 == list2);
+        REQUIRE_FALSE(list1 != list2);
+    }
+}
+
+TEST_CASE("Compare lists with different sizes", "[list_compare]") {
+    List<int> list1;
+    List<int> list2;
+
+    list1.push_back(1);
+    list1.push_back(2);
+
+    list2.push_back(1);
+
+    SECTION("Lists have different lengths") {
+        REQUIRE(list1 != list2);
+        REQUIRE_FALSE(list1 == list2);
+    }
+}
+
+TEST_CASE("Compare lists with same size but different elements", "[list_compare]") {
+    List<int> list1;
+    List<int> list2;
+
+    list1.push_back(1);
+    list1.push_back(2);
+    list1.push_back(3);
+
+    list2.push_back(1);
+    list2.push_back(2);
+    list2.push_back(4); // Unterschied hier
+
+    SECTION("Same size, different values") {
+        REQUIRE(list1 != list2);
+        REQUIRE_FALSE(list1 == list2);
+    }
+}
+
+TEST_CASE("Compare identical lists with multiple elements", "[list_compare]") {
+    List<int> list1;
+    List<int> list2;
+
+    for (int i = 0; i < 5; ++i) {
+        list1.push_back(i);
+        list2.push_back(i);
+    }
+
+    SECTION("Lists with identical sequences") {
+        REQUIRE(list1 == list2);
+        REQUIRE_FALSE(list1 != list2);
+    }
+}
+
+TEST_CASE("Compare lists of different types (should not compile)", "[list_compare][compile_error]") {
+    // Dieser Test ist rein illustrativ.
+    // Ein Vergleich von List<int> mit List<std::string> sollte durch den Compiler verhindert werden.
+    // Daher wird er hier nicht ausgeführt.
+    SUCCEED("Typisierte Listen lassen sich nicht direkt vergleichen – Kompilerfehler gewünscht.");
+}
+
+TEST_CASE("Compare list with itself", "[list_compare]") {
+    List<int> list;
+    list.push_back(5);
+    list.push_back(10);
+
+    SECTION("List should be equal to itself") {
+        REQUIRE(list == list);
+        REQUIRE_FALSE(list != list);
+    }
+}
 
 
 
