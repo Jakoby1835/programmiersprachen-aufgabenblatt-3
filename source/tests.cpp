@@ -660,12 +660,12 @@ TEST_CASE("Compare list with itself", "[list_compare]") {
 #include "sub_tests/end.test"
 
 //iterator tests
-/*#include "sub_tests/iterators/operator_star.test"
+#include "sub_tests/iterators/operator_star.test"
 #include "sub_tests/iterators/operator_arrow.test"
 #include "sub_tests/iterators/operator_equals.test"
 #include "sub_tests/iterators/operator_does_not_equal.test"
 #include "sub_tests/iterators/operator_iterate_forward.test"
-*/
+
 
 #include <map>
 

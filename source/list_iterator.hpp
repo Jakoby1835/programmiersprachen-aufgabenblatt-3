@@ -1,4 +1,4 @@
-#ifndef BUW_LIST_ITERATOR_HPP
+﻿#ifndef BUW_LIST_ITERATOR_HPP
 #define BUW_LIST_ITERATOR_HPP
 
 #include "list_node.hpp"
@@ -63,87 +63,76 @@ ListIterator<T>::ListIterator(ListNode<T>* node) : node_{ node }
  * BEGIN COMMENTING AND IMPLEMENTATION HERE *
  * ======================================== */
 
-//(Aufgabe 3.10 - Teil 1)
-/* Definition of Dereferenceing operator*() /
-/* ... */
-// not implemented yet
+ //=========================
+ // (Aufgabe 3.10 - Teil 1)
+ /* Dereferenzierungsoperator *
+    Gibt eine Referenz auf den Wert des Knotens zurück, auf den der Iterator zeigt. */
 template <typename T>
 T& ListIterator<T>::operator*() const {
     if (nullptr == node_) {
         throw "Iterator does not point to valid node";
     }
-
-    //TODO: remaining implementation of derefenciation of 
-    //      iterator using operator*
-
-} //call: *it
+    return node_->value;
+}
 
 //=========================
-//(Aufgabe 3.10 - Teil 2)
-/* Definition of Dereferenceing operator->() /
-/* ... */
-// not implemented yet
+// (Aufgabe 3.10 - Teil 2)
+/* Dereferenzierungsoperator ->
+   Gibt einen Zeiger auf das Element zurück, auf das der Iterator zeigt.
+   Ermöglicht Zugriff auf Member des Elements (z. B. it->member). */
 template <typename T>
 T* ListIterator<T>::operator->() const {
     if (nullptr == node_) {
         throw "Iterator does not point to valid node";
     }
-
-    //TODO: remaining implementation of derefenciation of 
-    //      iterator using operator->
-}  //call it->method() or it->member
+    return &(node_->value);
+}
 
 //=========================
 // (Aufgabe 3.10 - Teil 3)
-/* Definition of preincrement operator ++it /
-/* ... */
-// not implemented yet
+/* Präinkrement-Operator (++it)
+   Bewegt den Iterator auf das nächste Element und gibt eine Referenz auf sich selbst zurück. */
 template <typename T>
 ListIterator<T>& ListIterator<T>::operator++() {
     if (nullptr == node_) {
         throw "Iterator does not point to valid node";
     }
-
-    //TODO: Implement Postincrement-Operation for Iterator
+    node_ = node_->next;
+    return *this;
 }
 
 //=========================
-//  (Aufgabe 3.10 - Teil 4)
-/* Definition of postincrement operator it++ /
-/* ... */
-// not implemented yet
+// (Aufgabe 3.10 - Teil 4)
+/* Postinkrement-Operator (it++)
+   Gibt den aktuellen Iterator zurück und bewegt ihn anschließend auf das nächste Element. */
 template <typename T>
 ListIterator<T> ListIterator<T>::operator++(int) {
     if (nullptr == node_) {
         throw "Iterator does not point to valid node";
     }
-
-    //TODO: Implement Postincrement-Operation for Iterator
+    ListIterator<T> temp = *this;
+    node_ = node_->next;
+    return temp;
 }
 
 //=========================
-//  (Aufgabe 3.10 - Teil 5)
-/* Definition of comparison-operator for iterators in terms of equality */
-/* ... */
-// not implemented yet
+// (Aufgabe 3.10 - Teil 5)
+/* Vergleichsoperator ==
+   Zwei Iteratoren sind gleich, wenn sie auf denselben Knoten zeigen. */
 template <typename T>
 bool ListIterator<T>::operator==(ListIterator<T> x) const {
-    //TODO: Implement Equality-Operation for Iterator
-    // Iterators should be the same if they refer to the same node
-    return false;
-} // call it: == it
+    return node_ == x.node_;
+}
 
 //=========================
-//  (Aufgabe 3.10 - Teil 6)
-/* Definition of comparison-operator for iterators in terms of inequality */
-/* ... */
-// not implemented yet
+// (Aufgabe 3.10 - Teil 6)
+/* Vergleichsoperator !=
+   Zwei Iteratoren sind ungleich, wenn sie nicht auf denselben Knoten zeigen.
+   Reimplementiert über operator==. */
 template <typename T>
 bool ListIterator<T>::operator!=(ListIterator<T> x) const {
-    //TODO: Implement Inequality-Operation for Iterator  
-    // Reuse operator==
-    return false;
-} // call it: != it
+    return !(*this == x);
+}
 
 //=========================
 // is already implemented
