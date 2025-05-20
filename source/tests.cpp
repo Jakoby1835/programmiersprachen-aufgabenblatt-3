@@ -383,6 +383,137 @@ TEST_CASE("Reverse twice should restore original order", "[list_reverse]") {
     list.push_back(42);
 }
 
+TEST_CASE("Reverse a list with a single element (free function)", "[list_reverse]") {
+    List<int> list;
+    list.push_back(42);
+    auto reversed = reverse(list);
+
+    auto first = get_first_pointer(reversed);
+    auto last = get_last_pointer(reversed);
+
+    SECTION("List remains unchanged") {
+        REQUIRE(nullptr != first);
+        REQUIRE(nullptr != last);
+        REQUIRE(first == last);
+        REQUIRE(42 == first->value);
+        REQUIRE(1 == get_size(reversed));
+    }
+}
+
+TEST_CASE("Reverse a list with multiple elements (free function)", "[list_reverse]") {
+    List<int> list;
+    list.push_back(1);
+    list.push_back(2);
+    list.push_back(3);
+    auto reversed = reverse(list);
+
+    auto first = get_first_pointer(reversed);
+    auto last = get_last_pointer(reversed);
+
+    SECTION("List elements are reversed") {
+        REQUIRE(nullptr != first);
+        REQUIRE(nullptr != last);
+        REQUIRE(3 == first->value);
+        REQUIRE(1 == last->value);
+        REQUIRE(3 == get_size(reversed));
+    }
+}
+
+TEST_CASE("Reverse twice should restore original order (free function)", "[list_reverse]") {
+    List<int> list;
+    list.push_back(1);
+    list.push_back(2);
+    list.push_back(3);
+
+    auto reversed_once = reverse(list);
+    auto reversed_twice = reverse(reversed_once);
+
+    auto first = get_first_pointer(reversed_twice);
+    auto last = get_last_pointer(reversed_twice);
+
+    SECTION("List order is restored") {
+        REQUIRE(nullptr != first);
+        REQUIRE(nullptr != last);
+        REQUIRE(1 == first->value);
+        REQUIRE(3 == last->value);
+        REQUIRE(3 == get_size(reversed_twice));
+    }
+}
+
+TEST_CASE("Reverse an empty list (free function)", "[list_reverse]") {
+    List<int> list;
+    auto reversed = reverse(list);
+
+    auto first = get_first_pointer(reversed);
+    auto last = get_last_pointer(reversed);
+
+    SECTION("List is still empty") {
+        REQUIRE(nullptr == first);
+        REQUIRE(nullptr == last);
+        REQUIRE(0 == get_size(reversed));
+    }
+}
+
+TEST_CASE("Reverse a list with duplicate elements (free function)", "[list_reverse]") {
+    List<int> list;
+    list.push_back(7);
+    list.push_back(7);
+    list.push_back(42);
+    list.push_back(7);
+    auto reversed = reverse(list);
+
+    auto first = get_first_pointer(reversed);
+    auto last = get_last_pointer(reversed);
+
+    SECTION("List is reversed correctly with duplicates") {
+        REQUIRE(nullptr != first);
+        REQUIRE(nullptr != last);
+        REQUIRE(7 == first->value);
+        REQUIRE(7 == last->value);
+        REQUIRE(4 == get_size(reversed));
+    }
+}
+
+TEST_CASE("Reverse a list of strings (free function)", "[list_reverse]") {
+    List<std::string> list;
+    list.push_back("a");
+    list.push_back("b");
+    list.push_back("c");
+    auto reversed = reverse(list);
+
+    auto first = get_first_pointer(reversed);
+    auto last = get_last_pointer(reversed);
+
+    SECTION("String list is reversed") {
+        REQUIRE(nullptr != first);
+        REQUIRE(nullptr != last);
+        REQUIRE("c" == first->value);
+        REQUIRE("a" == last->value);
+        REQUIRE(3 == get_size(reversed));
+    }
+}
+
+TEST_CASE("Reverse a list of booleans (free function)", "[list_reverse]") {
+    List<bool> list;
+    list.push_back(true);
+    list.push_back(false);
+    list.push_back(true);
+    auto reversed = reverse(list);
+
+    auto first = get_first_pointer(reversed);
+    auto last = get_last_pointer(reversed);
+
+    SECTION("Boolean list is reversed") {
+        REQUIRE(nullptr != first);
+        REQUIRE(nullptr != last);
+        REQUIRE(true == first->value);
+        REQUIRE(true == last->value);
+        REQUIRE(3 == get_size(reversed));
+    }
+}
+
+
+
 
 //test cases for retrieving iterators
 /*#include "sub_tests/begin.test"

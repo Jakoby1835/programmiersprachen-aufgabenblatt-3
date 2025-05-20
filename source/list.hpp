@@ -334,22 +334,28 @@ template <typename T>
 void List<T>::reverse() {
     if (!empty()) {
         ListNode<T>* index = last_;
+        int original_size = size_;  // Merke ursprüngliche Größe
+
+        // Baue reversed Kopie hinten an
         while (index != nullptr) {
             push_back(index->value);
             index = index->prev;
         }
-        for (int i = 0; i <= size_ / 2; i++) {
+
+        // Entferne vordere Hälfte (die Original-Liste)
+        for (int i = 0; i < original_size; ++i) {
             pop_front();
         }
     }
 }
-
 //=========================
 // Aufgabe 3.7 - Teil 2 (same aber als freie funktion)
 /* ... */
 template <typename T>
 List<T> reverse(List<T> const& list_to_reverse) {
-
+    List<T> temp{ list_to_reverse };
+    temp.reverse();
+    return temp;
 }
 
 //========================= (wann gleich oder undgleich)
