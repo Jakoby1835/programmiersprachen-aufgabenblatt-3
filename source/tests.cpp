@@ -667,6 +667,101 @@ TEST_CASE("Compare list with itself", "[list_compare]") {
 #include "sub_tests/iterators/operator_iterate_forward.test"
 
 
+
+TEST_CASE("Insert into empty list", "[list_insert]") {
+    List<int> list;
+
+    auto it = list.insert(list.end(), 42);
+
+    REQUIRE(list.size() == 1);
+    REQUIRE(*it == 42);
+
+    auto first = list.begin();
+    REQUIRE(*first == 42);
+    REQUIRE(++first == list.end());
+}
+
+TEST_CASE("Insert at beginning of list", "[list_insert]") {
+    List<int> list;
+    list.push_back(10);
+    list.push_back(20);
+
+    auto it = list.insert(list.begin(), 5);
+
+    REQUIRE(list.size() == 3);
+    REQUIRE(*it == 5);
+
+    auto first = list.begin();
+    REQUIRE(*first == 5);
+    ++first;
+    REQUIRE(*first == 10);
+}
+
+TEST_CASE("Insert in the middle of list", "[list_insert]") {
+    List<int> list;
+    list.push_back(1);
+    list.push_back(3);
+
+    auto it = list.begin();
+    ++it; // Iterator auf Element 3
+
+    auto inserted_it = list.insert(it, 2);
+
+    REQUIRE(list.size() == 3);
+    REQUIRE(*inserted_it == 2);
+
+    auto iter = list.begin();
+    REQUIRE(*iter == 1);
+    ++iter;
+    REQUIRE(*iter == 2);
+    ++iter;
+    REQUIRE(*iter == 3);
+}
+
+TEST_CASE("Insert at end of list", "[list_insert]") {
+    List<int> list;
+    list.push_back(1);
+    list.push_back(2);
+
+    auto it = list.end();
+
+    auto inserted_it = list.insert(it, 3);
+
+    REQUIRE(list.size() == 3);
+    REQUIRE(*inserted_it == 3);
+
+    auto iter = list.begin();
+    REQUIRE(*iter == 1);
+    ++iter;
+    REQUIRE(*iter == 2);
+    ++iter;
+    REQUIRE(*iter == 3);
+    ++iter;
+    REQUIRE(iter == list.end());
+}
+
+TEST_CASE("Multiple inserts produce correct order", "[list_insert]") {
+    List<int> list;
+
+    auto it_end = list.end();
+
+    list.insert(it_end, 10); // Liste: 10
+    list.insert(list.begin(), 5); // Liste: 5,10
+    list.insert(list.end(), 20); // Liste: 5,10,20
+
+    REQUIRE(list.size() == 3);
+
+    auto it = list.begin();
+    REQUIRE(*it == 5);
+    ++it;
+    REQUIRE(*it == 10);
+    ++it;
+    REQUIRE(*it == 20);
+    ++it;
+    REQUIRE(it == list.end());
+}
+
+
 #include <map>
 
 int main(int argc, char *argv[])

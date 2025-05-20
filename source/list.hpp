@@ -420,11 +420,51 @@ ListIterator<T> List<T>::end() {
 
 //=========================
 // Aufgabe 3.11
-/* ... */
+/* Fügt ein neues Element *value* vor der Position *position* ein.
+   Verwendet den Iterator, um in O(1) Zeit das Element einzufügen.
+   Gibt einen Iterator auf das neu eingefügte Element zurück.
+*/
 template <typename T>
 ListIterator<T> List<T>::insert(ListIterator<T> const& position, T const& value) {
+    ListNode<T>* pos_node = position.get_node();
 
+    // Neuer Knoten, der eingefügt wird
+    ListNode<T>* new_node = new ListNode<T>{ value, nullptr, nullptr };
+
+    if (pos_node == nullptr) {
+        // Einfügen am Ende der Liste (position == end())
+        if (empty()) {
+            // Liste war leer
+            first_ = last_ = new_node;
+        }
+        else {
+            // Anhängend an last_
+            new_node->prev = last_;
+            last_->next = new_node;
+            last_ = new_node;
+        }
+    }
+    else if (pos_node == first_) {
+        // Einfügen vor dem ersten Element (also ganz vorne)
+        new_node->next = first_;
+        first_->prev = new_node;
+        first_ = new_node;
+    }
+    else {
+        // Einfügen irgendwo in der Mitte
+        new_node->next = pos_node;
+        new_node->prev = pos_node->prev;
+        if (pos_node->prev) {
+            pos_node->prev->next = new_node;
+        }
+        pos_node->prev = new_node;
+    }
+
+    ++size_;  // Größe der Liste erhöhen
+
+    return ListIterator<T>{new_node};
 }
+
 
 //=========================
 // Aufgabe 3.12
